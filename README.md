@@ -1,8 +1,7 @@
 <div align="center">
-
-    <kdb>
-    <img src="https://static.vecteezy.com/system/resources/previews/007/511/386/original/the-cute-octopus-is-smiling-clipart-trendy-doodle-style-vector.jpg" alt="Logo" height="400" width="450"/>
-    </kdb>
+    <kbd>
+    <img src="https://static.vecteezy.com/system/resources/previews/007/511/386/original/the-cute-octopus-is-smiling-clipart-trendy-doodle-style-vector.jpg" alt="Logo" height="200" width="200"/>
+    </kbd>
 
 # LinkHub - 
 
