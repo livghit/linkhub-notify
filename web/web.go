@@ -7,3 +7,10 @@ So I am still planing but I think here I want to put all the Routes that are rel
  or simply speaking have a template to render , will have to go inside this file using the Router 
 
 */
+
+func LoadWebRoutes() error{
+  // same like the api func it will feed the router with 
+  // the web routes
+
+  return nil
+}
