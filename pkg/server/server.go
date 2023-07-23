@@ -1,5 +1,11 @@
 package server
 
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/livghit/linkhub/pkg/config"
+	"github.com/livghit/linkhub/pkg/router"
+)
+
 /*
 
 this is the place where we define our server
@@ -10,4 +16,16 @@ this will have a struct called Server and a method (constructor) to spin up a Se
 */
 
 // the  server will have an router , server configs[link to litsen too , app name and so on]
-type Server struct{}
+type Server struct {
+	router  *fiber.App
+	configs config.ServerConfigs
+}
+
+func New() *Server {
+	s := Server{
+		router:  router.New(),
+		configs: config.ServerConfigs{},
+	}
+
+	return &s
+}
