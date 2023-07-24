@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/livghit/linkhub/pkg/router"
+	"github.com/livghit/linkhub/pkg/server"
 	"github.com/livghit/linkhub/web/templates"
 )
 
@@ -27,9 +29,9 @@ QUESTIONS :
 
 func main() {
 
-	app := fiber.New()
+	app := server.New() 
 
-	app.Get("/homepage", web.HomepageHandler)
+  app.router. 
 
 	log.Fatal(app.Listen(":3000"))
 }
