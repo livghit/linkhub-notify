@@ -1,16 +1,18 @@
 package web
 
 /*
-everyrthing related with views and so on routes with view in here
 
-So I am still planing but I think here I want to put all the Routes that are related with the web what I mean by that is that all the routes that have a 'view' 
- or simply speaking have a template to render , will have to go inside this file using the Router 
+I think this will be just loading the index.html Templates
+ex. homepage -> loads index.html -> index.html has alpine and htmx for hanling requests and so on
+or we could do only one index.html and then depending on what buttons are clicked the htmx doese a
+request to an api route and gets an html response and swaps inside index.html for the result he gets from
+the api
 
 */
 
-func LoadWebRoutes() error{
-  // same like the api func it will feed the router with 
-  // the web routes
+func LoadTemplate() error {
+	// same like the api func it will feed the router with
+	// the web routes
 
-  return nil
+	return nil
 }
