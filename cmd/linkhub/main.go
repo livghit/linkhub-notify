@@ -1,27 +1,13 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
-	"github.com/livghit/linkhub/pkg/router"
-	"github.com/livghit/linkhub/pkg/server"
-	"github.com/livghit/linkhub/web/templates"
+	"github.com/livghit/linkhub/pkg/config"
+	"github.com/livghit/linkhub/web/handlers"
+	"log"
 )
 
 /*
-
-This will buill the app maybe I will a a bootstrap under the  utils.go Ill have to see
-
-This will look something like that
-
-router := router.New();
-serverConfigs := configs.LoadConfigs()
-server := server.New(serverConfigs , router)
-
-server.Run();
-
-
 QUESTIONS :
 - Where will the middleware will be placed
 - How to handle user login with azur ad
@@ -29,9 +15,17 @@ QUESTIONS :
 
 func main() {
 
-	app := server.New() 
+	app := fiber.New(config.ViewConfigs())
 
-  app.router. 
+	// From here register all routes
+	app.Get("/", handlers.HomepageHandler)
+
+	app.Get("/test", func(c *fiber.Ctx) error {
+		return c.Render("pages/index", fiber.Map{
+			"Title": "App",
+		})
+	})
 
 	log.Fatal(app.Listen(":3000"))
+
 }
