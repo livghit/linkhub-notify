@@ -26,6 +26,8 @@ func main() {
 		}, "layouts/base")
 	})
 
+	app.Get("/users", handlers.UserHandler)
+
 	log.Fatal(app.Listen(":3000"))
 
 }
