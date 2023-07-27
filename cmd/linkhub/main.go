@@ -23,7 +23,7 @@ func main() {
 	app.Get("/test", func(c *fiber.Ctx) error {
 		return c.Render("pages/index", fiber.Map{
 			"Title": "App",
-		})
+		}, "layouts/base")
 	})
 
 	log.Fatal(app.Listen(":3000"))
