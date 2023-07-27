@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/livghit/linkhub/pkg/config"
+	"github.com/livghit/linkhub/pkg/middleware"
 	"github.com/livghit/linkhub/web/handlers"
-	"log"
 )
 
 /*
@@ -16,6 +18,8 @@ QUESTIONS :
 func main() {
 
 	app := fiber.New(config.ViewConfigs())
+	// register the auth middleware - this is a very basic and small auth provider
+	app.Use(middleware.Auth())
 
 	// From here register all routes
 	app.Get("/", handlers.HomepageHandler)
