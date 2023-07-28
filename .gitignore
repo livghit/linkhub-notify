@@ -1,3 +1,7 @@
 ./node-modules
-env
+web/views/pages/*.html
+web/views/partials/*.html
+web/views/layouts/*.html
+.env
 go.sum
+
