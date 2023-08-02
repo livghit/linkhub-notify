@@ -11,10 +11,6 @@ import (
 	"github.com/livghit/linkhub/web/handlers"
 )
 
-type TemplatingEngine struct {
-	ending string
-}
-
 // Function to pass the Templating Engine to the fiber app
 func ViewConfigs() fiber.Config {
 	// maybe do engine instead of mustache and have all the engine under engine.NewDjango NewMustache etc?

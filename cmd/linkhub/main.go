@@ -11,7 +11,7 @@ import (
 
 /*
 QUESTIONS :
-- Where will the middleware will be placed
+- Where will the middleware be placed
 - How to handle user login with azur ad
 */
 
