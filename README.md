@@ -3,7 +3,7 @@
     <img src="https://static.vecteezy.com/system/resources/previews/007/511/386/original/the-cute-octopus-is-smiling-clipart-trendy-doodle-style-vector.jpg" alt="Logo" height="200" width="200"/>
     </kbd>
 
-# LinkHub - Octopi
+# LinkHub - Notify
 
 ![Go Badge](https://img.shields.io/badge/Go-%2300ADD8?style=for-the-badge&logo=go&logoColor=white) 
 ![Alpine.js Badge](https://img.shields.io/badge/Alpine.js-%23FFB07C?style=for-the-badge) 
