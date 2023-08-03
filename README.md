@@ -10,11 +10,17 @@
 
 # Notification Service written in Go
 
-    <div>
+<div>
 
     This is my sideproject exploring the Golang wolrd and using Websockets to create a Notification system .
 
-    </div>
+</div>
+
+In order to start the Server run the followind inside the terminal
+
+```bash
+make build && make run
+```
 
 # How to connect to the ws via JS
 
