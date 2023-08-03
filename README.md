@@ -8,7 +8,7 @@
 ![Go Badge](https://img.shields.io/badge/Go-%2300ADD8?style=for-the-badge&logo=go&logoColor=white) 
 ![Docker Badge](https://img.shields.io/badge/Docker-%234682B4?style=for-the-badge&logo=docker&logoColor=white) 
 
-# Notification Service in written in Go 
+# Notification Service written in Go 
 
 </div>
 
