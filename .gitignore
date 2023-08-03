@@ -1,7 +1,4 @@
-./node-modules
-web/views/pages/*.html
-web/views/partials/*.html
-web/views/layouts/*.html
 .env
 go.sum
+/cmd/assets
 
