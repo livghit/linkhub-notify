@@ -14,7 +14,6 @@ import (
 
 func main() {
 
-	http.Handle("/", http.FileServer(http.Dir("../assets")))
 
   http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		ws, err := NewWebSocket(w, r)
@@ -39,6 +38,6 @@ func main() {
 		})
 	})
 
-	log.Println("Webserver runniong on 3000")
+  log.Println("Websocket running at ws//:localhost:3000/ws")
 	http.ListenAndServe(":3000", nil)
 }
