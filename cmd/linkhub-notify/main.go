@@ -8,36 +8,16 @@ package main
 import (
 	"log"
 	"net/http"
-	"strings"
-)
 
+	"github.com/livghit/linkhub-notify/internal/handlers"
+)
 
 func main() {
 
-
-  http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		ws, err := NewWebSocket(w, r)
-		if err != nil {
-			log.Printf("Error happend : %v", err)
-		}
-
-		ws.On("message", func(e *Event) {
-			log.Printf("Message recived: %v", e.Data.(string))
-
-			ws.Out <- (&Event{
-				Name: "response",
-				Data: strings.ToUpper(e.Data.(string)),
-			}).Raw()
-
-			if strings.ToUpper(e.Data.(string)) == "BANANA" {
-				ws.Out <- (&Event{
-					Name: "response",
-					Data: "No bananas for you man !",
-				}).Raw()
-			}
-		})
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		handlers.WsHandler(w, r)
 	})
 
-  log.Println("Websocket running at ws//:localhost:3000/ws")
+	log.Println("Websocket running at ws//:localhost:3000/ws")
 	http.ListenAndServe(":3000", nil)
 }
