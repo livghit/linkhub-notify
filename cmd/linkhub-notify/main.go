@@ -8,11 +8,15 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
 )
+
 
 func main() {
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	http.Handle("/", http.FileServer(http.Dir("../assets")))
+
+  http.HandleFunc("/ws/{:senderID}/{:reciverID}", func(w http.ResponseWriter, r *http.Request) {
 		ws, err := NewWebSocket(w, r)
 		if err != nil {
 			log.Printf("Error happend : %v", err)
@@ -20,8 +24,21 @@ func main() {
 
 		ws.On("message", func(e *Event) {
 			log.Printf("Message recived: %v", e.Data.(string))
+
+			ws.Out <- (&Event{
+				Name: "response",
+				Data: strings.ToUpper(e.Data.(string)),
+			}).Raw()
+
+			if strings.ToUpper(e.Data.(string)) == "BANANA" {
+				ws.Out <- (&Event{
+					Name: "response",
+					Data: "No bananas for you man !",
+				}).Raw()
+			}
 		})
 	})
 
+	log.Println("Webserver runniong on 3000")
 	http.ListenAndServe(":3000", nil)
 }
