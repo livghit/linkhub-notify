@@ -10,6 +10,12 @@
 
 # Notification Service written in Go
 
+    <div>
+
+    This is my sideproject exploring the Golang wolrd and using Websockets to create a Notification system .
+
+    </div>
+
 # How to connect to the ws via JS
 
 ```js
