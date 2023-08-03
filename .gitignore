@@ -1,4 +1,4 @@
 .env
 go.sum
-/cmd/assets
+cmd/assets
 

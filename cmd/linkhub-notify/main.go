@@ -16,7 +16,7 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.Dir("../assets")))
 
-  http.HandleFunc("/ws/{:senderID}/{:reciverID}", func(w http.ResponseWriter, r *http.Request) {
+  http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		ws, err := NewWebSocket(w, r)
 		if err != nil {
 			log.Printf("Error happend : %v", err)
