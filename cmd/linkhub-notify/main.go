@@ -14,9 +14,8 @@ import (
 
 func main() {
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		handlers.WsHandler(w, r)
-	})
+	http.HandleFunc("/ws", handlers.WsHandler)
+	http.HandleFunc("/ws/broadcast/", handlers.WsBroadcastHandler)
 
 	log.Println("Websocket running at ws//:localhost:3000/ws")
 	http.ListenAndServe(":3000", nil)
