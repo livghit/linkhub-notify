@@ -1,18 +1,29 @@
 package websocket
 
+import "fmt"
+
 type Hub struct {
 	// Registered clients
 	clients map[*Client]bool
+}
 
-	// Inbound messages from the client
+func InitiateHub() *Hub {
+	hub := new(Hub)
+	hub.clients = make(map[*Client]bool)
 
-	broadcast chan []byte
+	return hub
+}
 
-	//subscribe request from the clients
+func (h *Hub) subscribe(client Client) {
+	h.clients[&client] = true
+}
 
-	subscribe chan *Client
+func (h *Hub) unsubscribe(client Client) {
+	delete(h.clients, &client)
+}
 
-	// unsubscribe request from the clients
-
-	unsubscribe chan *Client
+func (h *Hub) PrintAllClients() {
+	for client := range h.clients {
+		fmt.Printf("%s", client)
+	}
 }
