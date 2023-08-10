@@ -1,32 +1,19 @@
 package handlers
 
 import (
+	"github.com/livghit/linkhub-notify/internal/websocket"
 	"log"
 	"net/http"
-	"strings"
-
-	"github.com/livghit/linkhub-notify/internal/websocket"
 )
 
 func WsHandler(w http.ResponseWriter, r *http.Request) {
-	ws, err := websocket.NewWebSocket(w, r)
+	hub := websocket.InitiateHub()
+	client, err := websocket.NewClient(w, r, *hub)
 	if err != nil {
-		log.Printf("Error happend : %v", err)
+		log.Panicf("Error while creating New client for the hub %s", err)
 	}
 
-	ws.On("message", func(e *websocket.Event) {
-		log.Printf("Message recived: %v", e.Data.(string))
+	hub.Clients[client] = true
+	hub.Subscribe <- client
 
-		ws.Out <- (&websocket.Event{
-			Name: "response",
-			Data: strings.ToUpper(e.Data.(string)),
-		}).Raw()
-
-		if strings.ToUpper(e.Data.(string)) == "BANANA" {
-			ws.Out <- (&websocket.Event{
-				Name: "response",
-				Data: "No bananas for you man !",
-			}).Raw()
-		}
-	})
 }

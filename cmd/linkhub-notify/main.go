@@ -6,18 +6,15 @@
 package main
 
 import (
-	"github.com/livghit/linkhub-notify/internal/websocket"
+	"net/http"
+
+	"github.com/livghit/linkhub-notify/internal/handlers"
 )
 
 func main() {
 
-	// http.HandleFunc("/ws", handlers.WsHandler)
 	// http.HandleFunc("/ws/broadcast/", handlers.WsBroadcastHandler)
-	//
 	// log.Println("Websocket running at ws//:localhost:3000/ws")
 	// http.ListenAndServe(":3000", nil)
-
-	hub := websocket.InitiateHub()
-
-	hub.PrintAllClients()
+	http.HandleFunc("/ws", handlers.WsHandler)
 }
