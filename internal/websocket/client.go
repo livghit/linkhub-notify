@@ -1,18 +1,20 @@
 package websocket
 
 import (
-	"github.com/gorilla/websocket"
+	"io"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 // the client is the middleman between the coket connection and the hub
 type Client struct {
 	Hub  *Hub
 	Conn *websocket.Conn
-
-	Send   chan []byte
-	Recive chan []byte
+	// buffers for sending and reciving messages
+	Send   []byte
+	Recive []byte
 
 	Events map[string]EventHandler
 }
@@ -41,68 +43,30 @@ func NewClient(w http.ResponseWriter, r *http.Request, hub Hub) (*Client, error)
 		Events: make(map[string]EventHandler),
 	}
 
-	go client.write()
 	go client.read()
+	go client.write()
 
 	return &client, nil
 
 }
 
 func (c *Client) write() {
-	// 
-}
-
-func (c *Client) read() {
 	//
 }
 
-// func (ws *WebSocket) Reader() {
-// 	defer func() {
-// 		ws.Conn.Close()
-// 	}()
-//
-// 	for {
-// 		_, message, err := ws.Conn.ReadMessage()
-// 		if err != nil {
-// 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-// 				log.Printf("Ws Error : %v", err)
-// 			}
-// 			break
-// 		}
-//
-// 		event, err := NewEventFromRaw(message)
-// 		if err != nil {
-// 			log.Printf("Parsing error : %v", err)
-// 		} else {
-// 			log.Printf("Event : %v", event)
-// 		}
-//
-// 		if action, ok := ws.Events[event.Name]; ok {
-// 			action(event)
-// 		}
-// 	}
-// }
-//
-// func (ws *WebSocket) Writer() {
-// 	for {
-// 		select {
-// 		case message, ok := <-ws.Out:
-// 			if !ok {
-// 				ws.Conn.WriteMessage(websocket.CloseMessage, make([]byte, 0))
-// 				return
-// 			}
-// 			w, err := ws.Conn.NextWriter(websocket.TextMessage)
-// 			if err != nil {
-// 				return
-// 			}
-//
-// 			w.Write(message)
-// 			w.Close()
-// 		}
-// 	}
-// }
-//
-// func (ws *WebSocket) On(eventName string, action EventHandler) *WebSocket {
-// 	ws.Events[eventName] = action
-// 	return ws
-// }
+// Loop for allowing the client to read msg from the client
+func (c *Client) read() {
+	c.Recive = make([]byte, 1024)
+	for {
+		_, n, err := c.Conn.ReadMessage()
+		if err != nil {
+      if err == io.EOF{
+        break
+      }
+			log.Printf("Error happend while reading from the client %v", err)
+      // we continuer here so the connection remains is we break here we also drop the connection
+      continue
+		}
+    
+	}
+}

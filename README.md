@@ -76,3 +76,15 @@ button.onclick = () => {
 This snippet connects to the ws and emites a message via the input and takes the Server response and renders it
 
 </div>
+
+<div>
+    This Microservice will be able to communicate with RESTFUL CRUD API AND MANAGE Notifications.
+    It will work like this (! DISCLAIMER THIS IS STILL UNDER DEVELOPMENT) :
+    The microservice has 3 Parts:
+    - Events :
+    these are the 'handlers' they define how the ws will respond to the Client. 
+    - Hub :
+    responsible for managing connection and Broadcasting to the clients .
+    - Client :
+    the client should represent the browser that creates a connection .
+</div>
