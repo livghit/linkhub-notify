@@ -12,6 +12,7 @@ import (
 type Client struct {
 	Hub  *Hub
 	Conn *websocket.Conn
+
 	// buffers for sending and reciving messages
 	Send   []byte
 	Recive []byte
@@ -29,7 +30,7 @@ var upgrader = websocket.Upgrader{
 }
 
 // upgrades from http to websocket
-func NewClient(w http.ResponseWriter, r *http.Request, hub Hub) (*Client, error) {
+func NewClient(w http.ResponseWriter, r *http.Request) (*Client, error) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Printf("Error occured while upgrading con : %v", err)
@@ -38,35 +39,35 @@ func NewClient(w http.ResponseWriter, r *http.Request, hub Hub) (*Client, error)
 
 	client := Client{
 		Conn:   conn,
-		Send:   make(chan []byte),
-		Recive: make(chan []byte),
+		Send:   make([]byte, 1024),
+		Recive: make([]byte, 1024),
 		Events: make(map[string]EventHandler),
 	}
 
-	go client.read()
-	go client.write()
 
 	return &client, nil
 
 }
 
-func (c *Client) write() {
+// it sends EventTypes to the Hub
+func (c *Client) Write() {
 	//
 }
 
-// Loop for allowing the client to read msg from the client
-func (c *Client) read() {
+// It reads answers from the Hub and renders it
+func (c *Client) Read() {
 	c.Recive = make([]byte, 1024)
 	for {
 		_, n, err := c.Conn.ReadMessage()
 		if err != nil {
-      if err == io.EOF{
-        break
-      }
+			if err == io.EOF {
+				break
+			}
 			log.Printf("Error happend while reading from the client %v", err)
-      // we continuer here so the connection remains is we break here we also drop the connection
-      continue
+			// we continuer here so the connection remains is we break here we also drop the connection
+			continue
 		}
-    
+
+		log.Print(n)
 	}
 }

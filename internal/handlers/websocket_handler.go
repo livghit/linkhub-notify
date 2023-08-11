@@ -6,14 +6,21 @@ import (
 	"net/http"
 )
 
-func WsHandler(w http.ResponseWriter, r *http.Request) {
-	hub := websocket.InitiateHub()
-	client, err := websocket.NewClient(w, r, *hub)
+func WsHandler(w http.ResponseWriter, r *http.Request, h *websocket.Hub) {
+
+	client, err := websocket.NewClient(w, r)
 	if err != nil {
 		log.Panicf("Error while creating New client for the hub %s", err)
 	}
 
-	hub.Clients[client] = true
-	hub.Subscribe <- client
+	h.Clients[client] = true
+	h.Subscribe <- client
 
+	go client.Read()
+	go client.Write()
+
+  // not sure if this closes the connection to early
+	defer func(client *websocket.Client) {
+		client.Conn.Close()
+	}(client)
 }

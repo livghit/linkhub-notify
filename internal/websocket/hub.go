@@ -11,19 +11,25 @@ type Hub struct {
 	// Registered clients
 	Clients map[*Client]bool
 
-	Subscribe chan *Client
+	//broadcasting que for broadcasting messages
+	Broadcast chan string
 
+	// Subscribe and Unsubscribe represent a chanel of request for subscribin and unsuscribing a client from the Clients map
+	Subscribe chan *Client
 	Unsubscribe chan *Client
 }
 
 func InitiateHub() *Hub {
 	hub := new(Hub)
 	hub.Clients = make(map[*Client]bool)
+	hub.Broadcast = make(chan string)
+	hub.Subscribe = make(chan *Client)
+	hub.Unsubscribe = make(chan *Client)
 
 	return hub
 }
 
-// needs rewriting 
+// needs rewriting
 func (h *Hub) broadcast(broadcastMessage []byte) {
 	for conn := range h.Clients {
 		go func(conn *websocket.Conn) {

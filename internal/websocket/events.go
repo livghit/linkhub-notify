@@ -1,12 +1,16 @@
 package websocket
 
-import "encoding/json"
 
 type EventHandler func(*Event)
 
 type Event struct {
-	Name string      `json:"event"`
-	Type EventType   `json:"eventType"`
+	Type EventType `json:"eventType"`
+	// with data we could pass the user id with the event type
+
+	// Like this we know wich user triggred the event
+	// think about user inviting another user to the dashboard
+	// like this we can know wich user invited who
+	// json example data: EventTriggredBy: userID , EventReciver: null or reciverUserID
 	Data interface{} `json:"data"`
 }
 
@@ -15,16 +19,3 @@ type EventType struct {
 	BroadcastMessageEvent string
 }
 
-func NewEventFromRaw(rawData []byte) (*Event, error) {
-	event := new(Event)
-
-	err := json.Unmarshal(rawData, event)
-
-	return event, err
-}
-
-func (e *Event) Raw() []byte {
-	raw, _ := json.Marshal(e)
-
-	return raw
-}
